@@ -1,0 +1,10 @@
+[MSSQLTest]  
+Driver = ODBC Driver 13 for SQL Server  
+Server = tcp:127.0.0.1,1433  
+Database = GATEWAY_DATA
+#   
+# Note:  
+# Port is not a valid keyword in the odbc.ini file  
+# for the Microsoft ODBC driver on Linux or macOS
+#  
+
