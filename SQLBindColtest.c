@@ -37,7 +37,7 @@ int main() {
             SQLSetConnectAttr(hdbc, SQL_LOGIN_TIMEOUT, (SQLPOINTER)5, 0);
 
             // Connect to data source
-            retcode = SQLConnect(hdbc, (SQLCHAR*) "MSSQLTest", SQL_NTS, (SQLCHAR*) "massimo", 7, (SQLCHAR*) "massimo123#ABC", 14);
+            retcode = SQLConnect(hdbc, (SQLCHAR*) "MSSQLTest", SQL_NTS, (SQLCHAR*) "SA", 2, (SQLCHAR*) "Allix2010", 9);
 
             // Allocate statement handle
             if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
@@ -57,10 +57,14 @@ int main() {
                      if (retcode == SQL_ERROR || retcode == SQL_SUCCESS_WITH_INFO)
                         show_error();
                      if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO)
-                        printf( "%d: %s %s %sn", i + 1, sCustID, szName, szPhone);
+                        printf( "%d: %s %s %s\n", i + 1, sCustID, szName, szPhone);
                      else
                         break;
                   }
+               } else {
+                     // error
+                     printf("ERROR: %d\n", retcode);
+                     show_error();
                }
 
                // Process data

@@ -1,4 +1,4 @@
-#ESEMPIO
+# ESEMPIO
 
 https://blogs.msdn.microsoft.com/sqlblog/2012/01/26/use-existing-msdn-c-odbc-samples-for-microsoft-linux-odbc-driver/
 
