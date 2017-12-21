@@ -22,3 +22,16 @@ Prima configurare sotto home il file .odbc.ini come nell'esempio `.odbc.ini_exam
 ```
 massimo@massimo-VirtualBox:~/workspace/try_c_odbc_mssql$isql -v MSSQLTest massimo massimo123#ABC
 ```
+
+## ESEMPIO INSERT BIND PARAMETERS
+
+https://www.easysoft.com/developer/languages/c/examples/BindParameter.html 
+
+## ALL EXAMPLES
+
+https://www.easysoft.com/developer/languages/c/examples/index.html
+
+### ESEMPIO di int binding
+
+http://docs.raima.com/rdme/9_1/Content/SQL/SQLBindParameter.htm
+
