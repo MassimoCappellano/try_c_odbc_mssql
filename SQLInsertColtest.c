@@ -4,6 +4,8 @@
 #include <sqlext.h>
 #include <sql.h>
 
+#include "util.h"
+
 #define NAME_LEN 50
 #define PHONE_LEN 20
 
@@ -65,8 +67,15 @@ int main() {
     strcpy(strFirstName, "John"); lenFirstName=strlen(strFirstName);
     lParam1 = 10; lParam1Ind = sizeof(lParam1);
 
-      retcode = SQLExecute(hstmt);
+    retcode = SQLExecute(hstmt);
 
+    if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
+        printf ("Status : Success\n");
+    } else {
+        CHECK_ERROR(retcode, "SQLExecute()", hstmt, SQL_HANDLE_STMT);
+    }
+
+              /*
               // Process data
                if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
                   SQLCancel(hstmt);
@@ -74,6 +83,7 @@ int main() {
                }
 
                SQLDisconnect(hdbc);
+               */
             } else {
                   printf("SONO ERROR %d\n", retcode);
             }
@@ -83,4 +93,28 @@ int main() {
       }
       SQLFreeHandle(SQL_HANDLE_ENV, henv);
    }
+
+   exit:
+
+    printf ("\nComplete.\n");
+
+    // Free handles
+    // Statement
+    if (hstmt != SQL_NULL_HSTMT) {
+          SQLCancel(hstmt);  // MY ADDITION
+          SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
+    }
+
+    // Connection
+    if (hdbc != SQL_NULL_HDBC) {
+        SQLDisconnect(hdbc);
+        SQLFreeHandle(SQL_HANDLE_DBC, hdbc);
+    }
+
+    // Environment
+    if (henv != SQL_NULL_HENV)
+        SQLFreeHandle(SQL_HANDLE_ENV, henv);
+
+    return 0;
+
 } 

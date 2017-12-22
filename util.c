@@ -26,6 +26,12 @@
 *                   See code.
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sqlext.h>
+#include <sql.h>
+
 #define CHECK_ERROR(e, s, h, t) ({\
             if (e!=SQL_SUCCESS && e != SQL_SUCCESS_WITH_INFO) {extract_error(s, h, t); goto exit;} \
 })
