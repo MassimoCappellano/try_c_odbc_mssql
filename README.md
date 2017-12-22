@@ -32,6 +32,8 @@ massimo@massimo-VirtualBox:~/workspace/try_c_odbc_mssql$isql -v MSSQLTest massim
 
 https://www.easysoft.com/developer/languages/c/examples/BindParameter.html 
 
+Here [BindParameter.c](BindParameter.c)
+
 ## ALL EXAMPLES
 
 https://www.easysoft.com/developer/languages/c/examples/index.html
