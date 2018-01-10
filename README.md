@@ -42,3 +42,14 @@ https://www.easysoft.com/developer/languages/c/examples/index.html
 
 http://docs.raima.com/rdme/9_1/Content/SQL/SQLBindParameter.htm
 
+### TUTORIALS
+
+[ODBC Applications: Writing Good Code](http://cdn.ttgtmedia.com/searchDataManagement/downloads/DataAccessHandbook_CH05.pdf)
+
+
+
+
+
+
+
+
