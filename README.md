@@ -8,6 +8,12 @@ https://stackoverflow.com/questions/33020646/gcc-odbc-on-linux-is-not-linking
 
 https://www.easysoft.com/developer/languages/c/odbc_tutorial.html
 
+## PREREQUISITE
+
+[Installing the Microsoft ODBC Driver for SQL Server on Linux and macOS](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server)  
+
+[Install SQL Server and create a database on Ubuntu](https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-ubuntu)
+
 ## CONFIGURE DATA SOURCE
 
 Trying to connect to MS SQL SERVER:

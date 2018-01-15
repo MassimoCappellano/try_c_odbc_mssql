@@ -1,0 +1,2 @@
+
+exec AxCreateLightMeasure @macAddress='00158D0000679963',@tensione=214,@dataRilevazione='2017-12-19T07:28:42',@tipoMisura=0,@serviceName=N'AxGatewayService'
