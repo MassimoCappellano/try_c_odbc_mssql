@@ -81,6 +81,7 @@ int main()
 
                     strcpy(strFirstName, "John");
                     lenFirstName = strlen(strFirstName);
+
                     lParam1 = 10;
                     lParam1Ind = sizeof(lParam1);
 
@@ -93,21 +94,13 @@ int main()
 
                     timeinfo = localtime (&rawtime);
                     
-                    /*
-                    datetime2.year = timeinfo-> tm_year;  
-                    datetime2.month = timeinfo->tm_mon;  
+                    datetime2.year = timeinfo-> tm_year + 1900;  
+                    datetime2.month = timeinfo->tm_mon + 1;  
                     datetime2.day = timeinfo->tm_mday;  
                     datetime2.hour = timeinfo->tm_hour;  
                     datetime2.minute = timeinfo->tm_min;  
                     datetime2.second = timeinfo->tm_sec;  
-                    */
 
-                    datetime2.year = 2018;  
-                    datetime2.month = 1;  
-                    datetime2.day = 22;  
-                    datetime2.hour = 5;  
-                    datetime2.minute = 12;  
-                    datetime2.second = 26;
                     // datetime2.fraction = 100;
 
                     cbdatetime2 = sizeof(SQL_TIMESTAMP_STRUCT);
