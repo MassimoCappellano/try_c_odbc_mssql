@@ -25,14 +25,28 @@ int main()
     SQLSMALLINT NumParams;
 
     int MAC_ADDRESS_LEN = 20;
+
     SQLCHAR strMacAddress[MAC_ADDRESS_LEN];
     SQLLEN lenMacAddress = 0;
 
-    SQLINTEGER lParam1;
-    SQLLEN lParam1Ind = 0;
+    SQLINTEGER intTensione;
+    SQLLEN lenIntTensione = 0;
 
     SQL_TIMESTAMP_STRUCT datetime2;
     SQLLEN cbdatetime2;   // size of datetime2  
+
+    SQLINTEGER intTipoMisura;
+    SQLLEN lenIntTipoMisura = 0;
+
+    int SERVICE_NAME_LEN = 20;
+    
+    SQLCHAR strServiceName[SERVICE_NAME_LEN];
+    SQLLEN lenServiceName = 0;
+
+    // output param
+    SWORD sParm1 = 0, sParm2 = 1;  
+    SQLLEN cbParm1 = SQL_NTS;  
+    SQLLEN cbParm2 = SQL_NTS;  
 
     // Allocate environment handle
     retcode = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &henv);
@@ -62,31 +76,45 @@ int main()
 
                     // Bind Parameters to all fields
                     // MAC TO DO
-                    retcode = SQLBindParameter(hstmt, 1, SQL_PARAM_INPUT,
+                    retcode = SQLBindParameter(hstmt, 2, SQL_PARAM_INPUT,
                                                SQL_C_CHAR, SQL_CHAR, MAC_ADDRESS_LEN, 0,
                                                strMacAddress, MAC_ADDRESS_LEN,
                                                &lenMacAddress);
-
-                    retcode = SQLBindParameter(hstmt, 2, SQL_PARAM_INPUT,
+                    retcode = SQLBindParameter(hstmt, 3, SQL_PARAM_INPUT,
                                                SQL_C_SLONG, SQL_INTEGER, 0, 0,
-                                               &lParam1, sizeof(lParam1),
-                                               &lParam1Ind);
+                                               &intTensione, sizeof(intTensione),
+                                               &lenIntTensione);
                     
-                    retcode = SQLBindParameter(hstmt, 3, SQL_PARAM_INPUT, 
+                    retcode = SQLBindParameter(hstmt, 4, SQL_PARAM_INPUT, 
                                                 SQL_C_TIMESTAMP, SQL_TYPE_TIMESTAMP, 27, 7, 
                                                 &datetime2, 0, &cbdatetime2);  
-                    
                     // tipo misura
-                    retcode = SQLBindParameter(hstmt, 4, SQL_PARAM_INPUT,
-                                               SQL_C_SLONG, SQL_INTEGER, 0, 0,
-                                               &lParam1, sizeof(lParam1),
-                                               &lParam1Ind);
-                    
-                    // service name
                     retcode = SQLBindParameter(hstmt, 5, SQL_PARAM_INPUT,
+                                               SQL_C_SLONG, SQL_INTEGER, 0, 0,
+                                               &intTipoMisura, sizeof(intTipoMisura),
+                                               &lenIntTipoMisura);
+                    // service name
+                    retcode = SQLBindParameter(hstmt, 6, SQL_PARAM_INPUT,
                                                SQL_C_CHAR, SQL_CHAR, MAC_ADDRESS_LEN, 0,
                                                strServiceName, MAC_ADDRESS_LEN,
                                                &lenServiceName);
+                    
+                    
+                    retcode = SQLBindParameter(hstmt, 1, SQL_PARAM_OUTPUT, 
+                                                SQL_C_SSHORT, SQL_INTEGER, 0, 0, 
+                                                &sParm1, 0, &cbParm1);  
+                   
+
+                    printf("SONO QUI\n");
+
+                    if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO)
+                    {
+                        printf("Status : Success1\n");
+                    }
+                    else
+                    {
+                        CHECK_ERROR(retcode, "SQLBindParameter()", hstmt, SQL_HANDLE_STMT);
+                    }
 
                     /*
                     @macAddress VARCHAR(20), 
@@ -98,18 +126,20 @@ int main()
 
                     // {? = CALL AxCreateLightMeasure (?,?, ?, ?, ?)}
 
-                    retcode = SQLPrepare(hstmt, (SQLCHAR *)"INSERT INTO LIGHTS_DATA (MAC_ADDRESS, LIGHT_VALUE, capture_time) VALUES (?, ?, ?)", SQL_NTS);
-
                     SQLNumParams(hstmt, &NumParams);
+                    
+                    printf("NUM PARAMS: %d\n", NumParams);
+                    // initialize values
 
+                    // MAC_ADDRESS
                     strcpy(strMacAddress, "MAC12312444");
                     lenMacAddress = strlen(strMacAddress);
 
-                    lParam1 = 10;
-                    lParam1Ind = sizeof(lParam1);
+                    //TENSIONE
+                    intTensione = 10;
+                    lenIntTensione = sizeof(intTensione);
 
                     // Initialize the datetime2 structure  
-
                     time_t rawtime;
                     time(&rawtime);
 
@@ -128,7 +158,16 @@ int main()
 
                     cbdatetime2 = sizeof(SQL_TIMESTAMP_STRUCT);
 
-                    retcode = SQLExecute(hstmt);
+                    // tipo misura
+                    intTipoMisura = 20;
+                    lenIntTipoMisura = sizeof(intTipoMisura);
+
+                    // service name
+                    strcpy(strServiceName, "TEST_SERVICE_NAME");
+                    lenServiceName = sizeof(strServiceName);
+
+                    // "{? = CALL [dbo].[AxCreateLightMeasure](?,?, ?, ?, ?)}"
+                    retcode = SQLExecDirect(hstmt, (UCHAR*)"{? = CALL [dbo].[AxCreateLightMeasure] (?,?, ?, ?, ?)}", SQL_NTS);
 
                     if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO)
                     {
@@ -138,16 +177,20 @@ int main()
                     {
                         CHECK_ERROR(retcode, "SQLExecute()", hstmt, SQL_HANDLE_STMT);
                     }
+                    
+                    printf("Before result sets cleared: RetCode = %d, OutParm = %d.\n", sParm1, sParm2);
 
-                    /*
-              // Process data
-               if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
-                  SQLCancel(hstmt);
-                  SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
-               }
+                    // Clear any result sets generated.  
+   
+   while ( ( retcode = SQLMoreResults(hstmt) ) != SQL_NO_DATA )  {
+       printf("SONO IN WHILE\n");
+   }
+        
+   
 
-               SQLDisconnect(hdbc);
-               */
+   // Show parameters are now filled.  
+   printf("After result sets drained: RetCode = %d, OutParm = %d.\n", sParm1, sParm2);  
+
                 }
                 else
                 {

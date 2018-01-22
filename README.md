@@ -34,23 +34,29 @@ Create in the home directory a file `.odbc.ini` like in the example `.odbc.ini_e
 massimo@massimo-VirtualBox:~/workspace/try_c_odbc_mssql$isql -v MSSQLTest massimo massimo123#ABC
 ```
 
-## ESEMPIO INSERT BIND PARAMETERS
+## EXAMPLES
 
-https://www.easysoft.com/developer/languages/c/examples/BindParameter.html 
+* [BindParameter.c](BindParameter.c) simple inserts;
+* [SQLBindColtest](SQLBindColtest.c)  simple select;
+* [SQLInsertColtest](SQLInsertColtest.c) insert in `LIGHTS_DATA` table;
+* [SQLStoreProcedureColtest](SQLStoreProcedureColtest.c) call store procedure;
+* [OutputParams](OutputParams.c) call store procedure;  
 
-Here [BindParameter.c](BindParameter.c)
-
-## ALL EXAMPLES
-
-https://www.easysoft.com/developer/languages/c/examples/index.html
-
-### EXAMPLE integer binding
-
-http://docs.raima.com/rdme/9_1/Content/SQL/SQLBindParameter.htm
+Schemas: [schema.sql](schema.sql), [schema_store_procedure.sql](schema_store_procedure.sql).
 
 ### TUTORIALS
 
+https://www.easysoft.com/developer/languages/c/examples/BindParameter.html 
+
+https://www.easysoft.com/developer/languages/c/examples/index.html
+
+http://docs.raima.com/rdme/9_1/Content/SQL/SQLBindParameter.htm
+
 [ODBC Applications: Writing Good Code](http://cdn.ttgtmedia.com/searchDataManagement/downloads/DataAccessHandbook_CH05.pdf)
+
+[Use Date and Time Types](https://docs.microsoft.com/en-us/sql/relational-databases/native-client-odbc-how-to/use-date-and-time-types)
+
+[Running Stored Procedures - Process Return Codes and Output Parameters](https://docs.microsoft.com/en-us/sql/relational-databases/native-client-odbc-how-to/running-stored-procedures-process-return-codes-and-output-parameters)
 
 
 

@@ -15,8 +15,6 @@ CREATE TABLE LIGHTS_DATA_ST
     serviceName NVARCHAR(50)
 );
 
-
-
 CREATE PROCEDURE [dbo].[AxCreateLightMeasure]
 	@macAddress VARCHAR(20), 
 	@tensione NUMERIC(19, 4), 
@@ -31,8 +29,20 @@ BEGIN
     VALUES
         (@macAddress, @tensione, @dataRilevazione, @tipoMisura, @serviceName)
 
-    SELECT 1
+    RETURN 1
 
 END
+
+use GATEWAY_DATA  
+IF EXISTS (SELECT name FROM sysobjects WHERE name = 'TestParm')  
+   DROP PROCEDURE TestParm  
+GO  
+
+CREATE PROCEDURE TestParm   
+@OutParm int OUTPUT   
+AS  
+SELECT @OutParm = 88  
+RETURN 99  
+go  
 
 	

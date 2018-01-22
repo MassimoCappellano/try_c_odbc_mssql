@@ -3,3 +3,6 @@ SQLBindColtest
 
 SQLInsertColtest
 
+SQLStoreProcedureColtest
+
+OutputParams
