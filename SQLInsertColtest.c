@@ -100,8 +100,7 @@ int main()
                     datetime2.hour = timeinfo->tm_hour;  
                     datetime2.minute = timeinfo->tm_min;  
                     datetime2.second = timeinfo->tm_sec;  
-
-                    // datetime2.fraction = 100;
+                    datetime2.fraction = 0;
 
                     cbdatetime2 = sizeof(SQL_TIMESTAMP_STRUCT);
 

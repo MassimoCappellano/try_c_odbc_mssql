@@ -14,6 +14,7 @@ CREATE TABLE LIGHTS_DATA_ST
     tipoMisura INT NOT NULL,
     serviceName NVARCHAR(50)
 );
+GO
 
 CREATE PROCEDURE [dbo].[AxCreateLightMeasure]
 	@macAddress VARCHAR(20), 
@@ -32,6 +33,7 @@ BEGIN
     RETURN 1
 
 END
+GO
 
 use GATEWAY_DATA  
 IF EXISTS (SELECT name FROM sysobjects WHERE name = 'TestParm')  
