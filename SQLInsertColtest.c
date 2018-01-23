@@ -118,15 +118,6 @@ int main()
                         CHECK_ERROR(retcode, "SQLExecute()", hstmt, SQL_HANDLE_STMT);
                     }
 
-                    /*
-              // Process data
-               if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
-                  SQLCancel(hstmt);
-                  SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
-               }
-
-               SQLDisconnect(hdbc);
-               */
                 }
                 else
                 {
