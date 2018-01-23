@@ -52,7 +52,10 @@ int main()
             {
                 SQLSetConnectAttr(hdbc, SQL_LOGIN_TIMEOUT, (SQLPOINTER)5, 0);
 
-                // Connect to data source
+                // Connect to data source 
+                // MSQLTest - data source
+                // SA - username
+                // Allix2010 - password
                 retcode = SQLConnect(hdbc, (SQLCHAR *)"MSSQLTest", SQL_NTS, (SQLCHAR *)"SA", 2, (SQLCHAR *)"Allix2010", 9);
 
                 // Allocate statement handle
