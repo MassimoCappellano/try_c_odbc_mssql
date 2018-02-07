@@ -52,7 +52,10 @@ int main()
             {
                 SQLSetConnectAttr(hdbc, SQL_LOGIN_TIMEOUT, (SQLPOINTER)5, 0);
 
-                // Connect to data source
+                // Connect to data source 
+                // MSQLTest - data source
+                // SA - username
+                // Allix2010 - password
                 retcode = SQLConnect(hdbc, (SQLCHAR *)"MSSQLTest", SQL_NTS, (SQLCHAR *)"SA", 2, (SQLCHAR *)"Allix2010", 9);
 
                 // Allocate statement handle
@@ -100,8 +103,7 @@ int main()
                     datetime2.hour = timeinfo->tm_hour;  
                     datetime2.minute = timeinfo->tm_min;  
                     datetime2.second = timeinfo->tm_sec;  
-
-                    // datetime2.fraction = 100;
+                    datetime2.fraction = 0;
 
                     cbdatetime2 = sizeof(SQL_TIMESTAMP_STRUCT);
 
@@ -116,15 +118,6 @@ int main()
                         CHECK_ERROR(retcode, "SQLExecute()", hstmt, SQL_HANDLE_STMT);
                     }
 
-                    /*
-              // Process data
-               if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
-                  SQLCancel(hstmt);
-                  SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
-               }
-
-               SQLDisconnect(hdbc);
-               */
                 }
                 else
                 {
